@@ -6,7 +6,7 @@ CREATE TABLE retail_sales
    sale_date DATE,
    sale_time TIME,
    customer_id INT,
-   gender VARCHAR(10),
+   gender VARCHAR(15),
    age INT,
    category VARCHAR(20),
    quantity INT,
