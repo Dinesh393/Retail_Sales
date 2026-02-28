@@ -175,7 +175,7 @@ GROUP BY YEAR(sale_date), MONTH(sale_date)
 WHERE Rank = 1;
 ```
 
-9. **Write a SQL query to find the top 5 customers based on the highest total sales **:
+9. **Write a SQL query to find the top 5 customers based on the highest total sales**:
 ```sql
 SELECT 
       TOP 5 customer_id,
@@ -205,7 +205,7 @@ SELECT *,
 FROM retail_sales;
 ```
 
-11. **Write a sql query to get total number of sales done in each shift.:
+11. **Write a sql query to get total number of sales done in each shift.:**
 ```sql
 WITH hourly_sale
 AS
