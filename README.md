@@ -223,6 +223,41 @@ SELECT
 	COUNT(*) AS TotalSale;
 ```
 
+--------Revenue & Profit Analysis-----------
+1) **Calculate total profit for each category.**
+```sql
+SELECT category, SUM(total_sale-cogs) AS Profit
+FROM retail_sales
+GROUP BY category;
+```
+
+2) **Top 5 most profitable days.**
+```sql
+SELECT TOP 5
+       sale_date,
+       SUM(total_sale - cogs) AS Profit
+FROM retail_sales
+GROUP BY sale_date
+ORDER BY Profit DESC;
+```
+3) **What is the daily average revenue trend?**
+```sql
+SELECT 
+    YEAR(sale_date) AS Year,
+    MONTH(sale_date) AS Month,
+    AVG(DailyRevenue) AS AvgDailyRevenue
+FROM
+(
+    SELECT 
+        sale_date,
+        SUM(total_sale) AS DailyRevenue
+    FROM retail_sales
+    GROUP BY sale_date
+) AS DailySales
+GROUP BY YEAR(sale_date), MONTH(sale_date)
+ORDER BY Year, Month;
+```
+
 ## Findings
 
 - **Customer Demographics**: The dataset includes customers from various age groups, with sales distributed across different categories such as Clothing and Beauty.
