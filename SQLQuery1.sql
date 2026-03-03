@@ -68,7 +68,7 @@ WHERE age IS NULL;
 
 
 -----Data Exploration-----
---How many sakes we have
+--How many sales we have
 SELECT COUNT(*) AS TotalSale FROM retail_sales;
 
 --How many customers we have?
@@ -130,7 +130,7 @@ FROM retail_sales
 GROUP BY 
      category,
 	 gender
-ORDER BY 1;
+ORDER BY category;
 
 
 --7) Write a sql query to calculate the average sale for each month. 
@@ -202,8 +202,42 @@ FROM retail_sales
 )
 SELECT
     shift,
-	COUNT(*) AS TotalSale
+	COUNT(*) AS TotalSale;
 FROM hourly_sale
 GROUP BY shift;
+
+
+
+
+--------Revenue & Profit Analysis-----------
+--1)Calculate total profit for each category.
+SELECT category, SUM(total_sale-cogs) AS Profit
+FROM retail_sales
+GROUP BY category;
+
+
+--2) Top 5 most profitable days.
+SELECT TOP 5
+       sale_date,
+       SUM(total_sale - cogs) AS Profit
+FROM retail_sales
+GROUP BY sale_date
+ORDER BY Profit DESC;
+
+--3) What is the daily average revenue trend?
+SELECT 
+    YEAR(sale_date) AS Year,
+    MONTH(sale_date) AS Month,
+    AVG(DailyRevenue) AS AvgDailyRevenue
+FROM
+(
+    SELECT 
+        sale_date,
+        SUM(total_sale) AS DailyRevenue
+    FROM retail_sales
+    GROUP BY sale_date
+) AS DailySales
+GROUP BY YEAR(sale_date), MONTH(sale_date)
+ORDER BY Year, Month;
 
 ------END------
